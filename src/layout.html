@@ -1,0 +1,10 @@
+<div id="ng-table">
+    <div ng-if="htTable.showFilters()" ng-include="'ht-table/filters.html'">
+    </div>
+    <h4 ng-repeat-start="field in filter.select">{{field.name}}</h4>
+    <div class="btn-group" ng-repeat-end="">
+        <label ng-repeat="option in field.options" class="btn btn-success" ng-change="filter.update()" ng-model="option.selected" btn-radio="1" btn-checkbox>{{option.name}}</label>
+    </div>
+
+    <div ng-include="'ht-table/table.html'"></div>
+</div>

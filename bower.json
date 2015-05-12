@@ -1,0 +1,30 @@
+{
+  "name": "ht-table",
+  "version": "0.0.1",
+  "description": "",
+  "author": "Adrian Nowicki <adrian.nowicki@outlook.com",
+  "license": "",
+  "homepage": "https://github.com/hightest/angular-table",
+  "main": [
+    "dist/ht-table.js",
+    "dist/ht-table.min.js"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "src",
+    "bower_components",
+    "test*",
+    "demo*",
+    "gulpfile.js",
+    "package.json"
+  ],
+  "dependencies": {
+    "angular": "1.4.*",
+    "bootstrap": "latest",
+    "ng-table": "0.3.*",
+    "angular-bootstrap": "latest",
+    "ng-csv": "latest",
+    "angular-sanitize": "latest"
+  }
+}

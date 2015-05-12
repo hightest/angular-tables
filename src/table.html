@@ -1,0 +1,30 @@
+<div class="table-responsive">
+    <table class="table table-bordered" id="{{htTable.settings.id}}" ng-class="table.class">
+        <thead ng-include="'ht-table/header.html'"></thead>
+        <tbody>
+        <tr ng-repeat-start="row in htTable.data" ng-class="htTable.rowStyle(row)">
+            <td>{{ htTable.getIndex() + $index + 1 }}.</td>
+            <th scope="row" ng-if="htTable.selectMultiple()" ng-include="'ht-table/checkbox.html'"></th>
+            <td ng-repeat="field in htTable.fields | field" ng-click="htTable.expand(row)">
+                <div ng-if="!field.templateUrl">{{htTable.getValue(field, row)}}</div>
+                <div ng-if="field.templateUrl" ng-click="$event.stopPropagation()" ng-include="field.templateUrl"></div>
+            </td>
+        <tr ng-repeat-end="" ng-if="htTable.expanded == row">
+            <td colspan="{{htTable.countColumns()}}"><div ui-view></div></td>
+        </tr>
+        </tbody>
+        <tfoot ng-if="htTable.hasSum()">
+        <tr>
+            <td>&nbsp;</td>
+            <td ng-if="htTable.selectMultiple">&nbsp;</td>
+            <td ng-repeat="field in htTable.fields | field">
+                    <span ng-if="field.type == 'sum'">
+                        Suma: {{htTable.sum(field.field) | number:2}}
+                    </span>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+</div>
+
+<div class="row" ng-include="'ht-table/pagination.html'" ng-if="htTable.showPagination()"></div>
