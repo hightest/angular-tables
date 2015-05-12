@@ -51,6 +51,7 @@
             self.expand = expand;
             self.hasSum = hasSum;
             self.sum = sum;
+            self.sums = {};
             self.countColumns = countColumns;
 
             init();
@@ -233,6 +234,12 @@
                 }
 
                 return result;
+            }
+
+            function updateSums() {
+                var deferred = $q.defer();
+
+                return deferred.promise;
             }
 
             function getValue(field, row) {
