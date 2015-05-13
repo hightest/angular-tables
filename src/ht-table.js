@@ -86,7 +86,7 @@
                 self.filterFields = [{name: "Wszędzie", field: "$"}].concat(settings.fields);
                 self.selectFilters = settings.selectFilters;
                 self.expanded = settings.expanded;
-                // todo go to expanded field
+
                 prepareFields();
                 initFiltering();
                 if (null !== self.expanded) {
