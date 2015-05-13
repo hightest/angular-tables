@@ -78,7 +78,7 @@
                 };
 
                 settings = angular.merge({}, oldSettings, $scope.settings);
-
+                settings.expanded = $scope.settings.expanded;
                 self.data = [];
                 self.fieldFilter = { visible: true };
                 self.pagination = settings.pagination;
@@ -89,8 +89,8 @@
 
                 prepareFields();
                 initFiltering();
-                if (null !== self.expanded) {
-                    $q.when(self.expanded).then(function(result) {
+                if (null !== settings.expanded) {
+                    $q.when(settings.expanded).then(function(result) {
                         self.expanded = result;
                         goToRow(result);
                     });

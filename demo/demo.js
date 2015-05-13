@@ -23,6 +23,12 @@ angular.module('demo', ['ht.tables']).controller('DemoCtrl', function ($scope, $
         {id: 1, name: "a23", age: 34}
     ];
 
+
+        var deferred = $q.defer();
+        $timeout(function() {
+            deferred.resolve(expand);
+        }, 1000);
+
     $scope.settings = {
         id: 'table-id',
         fields: [
@@ -54,7 +60,7 @@ angular.module('demo', ['ht.tables']).controller('DemoCtrl', function ($scope, $
                 ]
             }
         ],
-        expanded: expand,
+        expanded: deferred.promise,
         activeStyle: 'active',
         showFilters: true,
         selectMultiple: true,

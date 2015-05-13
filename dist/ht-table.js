@@ -1,7 +1,7 @@
 /*!
  * ht-table
  * https://github.com/hightest/angular-table
- * Version: 0.0.1 - 2015-05-13T14:05:51.328Z
+ * Version: 0.0.1 - 2015-05-13T14:48:54.242Z
  * License: 
  */
 
@@ -86,7 +86,7 @@
                 };
 
                 settings = angular.merge({}, oldSettings, $scope.settings);
-
+                settings.expanded = $scope.settings.expanded;
                 self.data = [];
                 self.fieldFilter = { visible: true };
                 self.pagination = settings.pagination;
@@ -97,8 +97,8 @@
 
                 prepareFields();
                 initFiltering();
-                if (null !== self.expanded) {
-                    $q.when(self.expanded).then(function(result) {
+                if (null !== settings.expanded) {
+                    $q.when(settings.expanded).then(function(result) {
                         self.expanded = result;
                         goToRow(result);
                     });
