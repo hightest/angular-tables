@@ -1,7 +1,7 @@
 /*!
  * ht-table
  * https://github.com/hightest/angular-table
- * Version: 0.0.1 - 2015-05-12T14:47:19.118Z
+ * Version: 0.0.1 - 2015-05-13T10:06:26.592Z
  * License: 
  */
 
@@ -22,7 +22,7 @@
         function TableController($scope, $filter, $q, $timeout) {
             var self = this;
             var settings;
-            var originalData = $scope.data;
+            var originalData = [];
             var filteredData = [];
             var sortedData = [];
 
@@ -62,7 +62,10 @@
             self.sums = {};
             self.countColumns = countColumns;
 
-            init();
+            $q.when($scope.data).then(function(result) {
+                originalData = result;
+                init();
+            });
 
             function init() {
                 var oldSettings = {
@@ -95,7 +98,10 @@
                 prepareFields();
                 initFiltering();
                 if (null !== self.expanded) {
-                    goToRow(self.expanded);
+                    $q.when(self.expanded).then(function(result) {
+                        self.expanded = result;
+                        goToRow(result);
+                    });
                 }
             }
 

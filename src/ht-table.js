@@ -14,7 +14,7 @@
         function TableController($scope, $filter, $q, $timeout) {
             var self = this;
             var settings;
-            var originalData = $scope.data;
+            var originalData = [];
             var filteredData = [];
             var sortedData = [];
 
@@ -54,7 +54,10 @@
             self.sums = {};
             self.countColumns = countColumns;
 
-            init();
+            $q.when($scope.data).then(function(result) {
+                originalData = result;
+                init();
+            });
 
             function init() {
                 var oldSettings = {
@@ -87,7 +90,10 @@
                 prepareFields();
                 initFiltering();
                 if (null !== self.expanded) {
-                    goToRow(self.expanded);
+                    $q.when(self.expanded).then(function(result) {
+                        self.expanded = result;
+                        goToRow(result);
+                    });
                 }
             }
 
