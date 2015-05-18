@@ -56,8 +56,9 @@
 
             $q.when($scope.data).then(function(result) {
                 originalData = result;
-                init();
+                postInit();
             });
+            init();
 
             function init() {
                 var oldSettings = {
@@ -89,6 +90,9 @@
                 self.expanded = settings.expanded;
 
                 prepareFields();
+            }
+
+            function postInit() {
                 initFiltering();
                 if (null !== settings.expanded) {
                     $q.when(settings.expanded).then(function(result) {

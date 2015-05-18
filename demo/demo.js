@@ -1,27 +1,31 @@
 angular.module('demo', ['ht.tables']).controller('DemoCtrl', function ($scope, $q, $timeout) {
     var expand = {id: 1, name: "a11", age: 34};
 
-    $scope.data = [
-        {id: 1, name: "Moroni", age: 50},
-        {id: 1, name: "Tiancum", age: 43},
-        {id: 1, name: "Jacob", age: 27},
-        {id: 1, name: "Nephi", age: 29},
-        {id: 1, name: "Enos", age: 34},
-        {id: 1, name: "Tiancum", age: 43},
-        {id: 1, name: "Jacob", age: 27},
-        {id: 1, name: "Nephi", age: 29},
-        {id: 1, name: "Enos", age: 33},
-        {id: 1, name: "Tiancum", age: 43},
-        {id: 1, name: "Jacob", age: 27},
-        {id: 1, name: "Nephi", age: 29},
-        {id: 1, name: "Enos", age: 34},
-        {id: 1, name: "Tiancum", age: 43},
-        {id: 1, name: "Jacob", age: 27},
-        {id: 1, name: "Nephi", age: 29},
-        {id: 1, name: "a2", age: 34},
-        expand,
-        {id: 1, name: "a23", age: 34}
-    ];
+    var defer = $q.defer();
+    $scope.data = defer.promise;
+    $timeout(function() {
+        defer.resolve([
+            {id: 1, name: "Moroni", age: 50},
+            {id: 1, name: "Tiancum", age: 43},
+            {id: 1, name: "Jacob", age: 27},
+            {id: 1, name: "Nephi", age: 29},
+            {id: 1, name: "Enos", age: 34},
+            {id: 1, name: "Tiancum", age: 43},
+            {id: 1, name: "Jacob", age: 27},
+            {id: 1, name: "Nephi", age: 29},
+            {id: 1, name: "Enos", age: 33},
+            {id: 1, name: "Tiancum", age: 43},
+            {id: 1, name: "Jacob", age: 27},
+            {id: 1, name: "Nephi", age: 29},
+            {id: 1, name: "Enos", age: 34},
+            {id: 1, name: "Tiancum", age: 43},
+            {id: 1, name: "Jacob", age: 27},
+            {id: 1, name: "Nephi", age: 29},
+            {id: 1, name: "a2", age: 34},
+            expand,
+            {id: 1, name: "a23", age: 34}
+        ]);
+    }, 1000);
 
 
         var deferred = $q.defer();

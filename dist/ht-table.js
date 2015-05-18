@@ -1,7 +1,7 @@
 /*!
  * ht-table
  * https://github.com/hightest/angular-table
- * Version: 0.0.1 - 2015-05-18T08:21:42.506Z
+ * Version: 0.0.1 - 2015-05-18T11:34:27.023Z
  * License: 
  */
 
@@ -64,8 +64,9 @@
 
             $q.when($scope.data).then(function(result) {
                 originalData = result;
-                init();
+                postInit();
             });
+            init();
 
             function init() {
                 var oldSettings = {
@@ -97,6 +98,9 @@
                 self.expanded = settings.expanded;
 
                 prepareFields();
+            }
+
+            function postInit() {
                 initFiltering();
                 if (null !== settings.expanded) {
                     $q.when(settings.expanded).then(function(result) {
