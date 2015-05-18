@@ -61,14 +61,11 @@ angular.module('demo', ['ht.tables']).controller('DemoCtrl', function ($scope, $
             }
         ],
         expanded: deferred.promise,
+        expand: true,
         activeStyle: 'active',
         showFilters: true,
-        selectMultiple: true,
-        onClick: function(row) {
-            console.log(row);
-        }
+        selectMultiple: true
     };
-
 });
 angular.module('demo').run(function($templateCache) {
     $templateCache.put("template.html","<div>{{ row.name }}!</div>");

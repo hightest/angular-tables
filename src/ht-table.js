@@ -74,6 +74,7 @@
                     sorting: [],
                     selectMultiple: false,
                     expanded: null,
+                    expand: false,
                     onClick: function() {}
                 };
 
@@ -114,6 +115,8 @@
             }
 
             function expand(row) {
+                if (!settings.expand) return;
+
                 if (self.expanded == row) {
                     self.expanded = null;
                 } else {
