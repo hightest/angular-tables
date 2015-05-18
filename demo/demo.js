@@ -3,6 +3,9 @@ angular.module('demo', ['ht.tables']).controller('DemoCtrl', function ($scope, $
 
     var defer = $q.defer();
     $scope.data = defer.promise;
+    $scope.data.then(function(result) {
+        $scope.data = result;
+    });
     $timeout(function() {
         defer.resolve([
             {id: 1, name: "Moroni", age: 50},
