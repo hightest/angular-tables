@@ -1,7 +1,7 @@
 /*!
  * ht-table
  * https://github.com/hightest/angular-table
- * Version: 0.0.1 - 2015-05-18T11:34:27.023Z
+ * Version: 0.0.1 - 2015-05-18T14:12:56.718Z
  * License: 
  */
 
@@ -25,6 +25,12 @@
             var originalData = [];
             var filteredData = [];
             var sortedData = [];
+
+            $scope.$watch('data', function (newVal, oldVal) {
+                if (newVal !== oldVal) {
+                    dataListener();
+                }
+            });
 
             self.filterTypes = [
                 {
@@ -61,12 +67,21 @@
             self.sum = sum;
             self.sums = {};
             self.countColumns = countColumns;
+            var singleSelect = null;
 
             $q.when($scope.data).then(function(result) {
                 originalData = result;
                 postInit();
             });
+            dataListener();
             init();
+
+            function dataListener() {
+                $q.when($scope.data).then(function(result) {
+                    originalData = result;
+                    postInit();
+                });
+            }
 
             function init() {
                 var oldSettings = {
@@ -127,6 +142,12 @@
             }
 
             function expand(row) {
+                if (!settings.selectMultiple) {
+                    if (singleSelect) singleSelect.$htTable.selected = false;
+                    singleSelect = row;
+                    if (!row.$htTable) row.$htTable = {};
+                    row.$htTable.selected = true;
+                }
                 if (!settings.expand) return;
 
                 if (self.expanded == row) {

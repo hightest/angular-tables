@@ -6,6 +6,7 @@ angular.module('demo', ['ht.tables']).controller('DemoCtrl', function ($scope, $
     $scope.data.then(function(result) {
         $scope.data = result;
     });
+
     $timeout(function() {
         defer.resolve([
             {id: 1, name: "Moroni", age: 50},
@@ -71,7 +72,7 @@ angular.module('demo', ['ht.tables']).controller('DemoCtrl', function ($scope, $
         expand: true,
         activeStyle: 'active',
         showFilters: true,
-        selectMultiple: true
+        selectMultiple: false
     };
 });
 angular.module('demo').run(function($templateCache) {

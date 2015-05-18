@@ -18,6 +18,12 @@
             var filteredData = [];
             var sortedData = [];
 
+            $scope.$watch('data', function (newVal, oldVal) {
+                if (newVal !== oldVal) {
+                    dataListener();
+                }
+            });
+
             self.filterTypes = [
                 {
                     'name': 'Szukaj w',
@@ -53,12 +59,21 @@
             self.sum = sum;
             self.sums = {};
             self.countColumns = countColumns;
+            var singleSelect = null;
 
             $q.when($scope.data).then(function(result) {
                 originalData = result;
                 postInit();
             });
+            dataListener();
             init();
+
+            function dataListener() {
+                $q.when($scope.data).then(function(result) {
+                    originalData = result;
+                    postInit();
+                });
+            }
 
             function init() {
                 var oldSettings = {
@@ -119,6 +134,12 @@
             }
 
             function expand(row) {
+                if (!settings.selectMultiple) {
+                    if (singleSelect) singleSelect.$htTable.selected = false;
+                    singleSelect = row;
+                    if (!row.$htTable) row.$htTable = {};
+                    row.$htTable.selected = true;
+                }
                 if (!settings.expand) return;
 
                 if (self.expanded == row) {
