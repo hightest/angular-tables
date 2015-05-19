@@ -1,7 +1,7 @@
 /*!
  * ht-table
  * https://github.com/hightest/angular-table
- * Version: 0.0.1 - 2015-05-18T14:12:56.718Z
+ * Version: 0.0.1 - 2015-05-19T09:43:33.447Z
  * License: 
  */
 
@@ -142,6 +142,7 @@
             }
 
             function expand(row) {
+                settings.onClick(row);
                 if (!settings.selectMultiple) {
                     if (singleSelect) singleSelect.$htTable.selected = false;
                     singleSelect = row;
@@ -155,7 +156,6 @@
                 } else {
                     self.expanded = row;
                 }
-                settings.onClick(row);
             }
 
             function goToRow(object) {
