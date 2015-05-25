@@ -37,6 +37,21 @@ angular.module('demo', ['ht.tables']).controller('DemoCtrl', function ($scope, $
             deferred.resolve(expand);
         }, 1000);
 
+    /**
+     * pobranie nowych danych
+     */
+    var deferred2 = $q.defer();
+    $timeout(function() {
+        console.log('load new data');
+        deferred2.promise.then(function(result) {
+            $scope.data = result;
+        });
+        $timeout(function() {
+            console.log('resolve new data');
+            deferred2.resolve([{id: 1, name: "Enos", age: 34}]);
+        }, 2000);
+    }, 5000);
+
     $scope.settings = {
         id: 'table-id',
         fields: [
