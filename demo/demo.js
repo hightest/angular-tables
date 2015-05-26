@@ -44,7 +44,7 @@ angular.module('demo', ['ht.tables']).controller('DemoCtrl', function ($scope, $
     $timeout(function() {
         console.log('load new data');
         deferred2.promise.then(function(result) {
-            $scope.data = result;
+            angular.copy(result, $scope.data);
         });
         $timeout(function() {
             console.log('resolve new data');

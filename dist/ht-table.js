@@ -1,7 +1,7 @@
 /*!
  * ht-table
  * https://github.com/hightest/angular-table
- * Version: 0.0.1 - 2015-05-18T14:12:56.718Z
+ * Version: 0.0.1 - 2015-05-26T13:01:09.681Z
  * License: 
  */
 
@@ -26,10 +26,8 @@
             var filteredData = [];
             var sortedData = [];
 
-            $scope.$watch('data', function (newVal, oldVal) {
-                if (newVal !== oldVal) {
-                    dataListener();
-                }
+            $scope.$watchCollection('data', function () {
+                dataListener();
             });
 
             self.filterTypes = [

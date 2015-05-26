@@ -18,10 +18,8 @@
             var filteredData = [];
             var sortedData = [];
 
-            $scope.$watch('data', function (newVal, oldVal) {
-                if (newVal !== oldVal) {
-                    dataListener();
-                }
+            $scope.$watchCollection('data', function () {
+                dataListener();
             });
 
             self.filterTypes = [
