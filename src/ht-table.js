@@ -132,6 +132,7 @@
             }
 
             function expand(row) {
+                settings.onClick(row);
                 if (!settings.selectMultiple) {
                     if (singleSelect) singleSelect.$htTable.selected = false;
                     singleSelect = row;
@@ -145,7 +146,6 @@
                 } else {
                     self.expanded = row;
                 }
-                settings.onClick(row);
             }
 
             function goToRow(object) {
