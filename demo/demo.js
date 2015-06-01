@@ -2,9 +2,9 @@ angular.module('demo', ['ht.tables']).controller('DemoCtrl', function ($scope, $
     var expand = {id: 1, name: "a11", age: 34};
 
     var defer = $q.defer();
-    $scope.data = defer.promise;
-    $scope.data.then(function(result) {
-        $scope.data = result;
+    $scope.data = [];
+    defer.promise.then(function(result) {
+        angular.copy(result, $scope.data);
     });
 
     $timeout(function() {
@@ -85,6 +85,7 @@ angular.module('demo', ['ht.tables']).controller('DemoCtrl', function ($scope, $
         ],
         expanded: deferred.promise,
         expand: true,
+        comparator: function(object1, object2) {return true;},
         activeStyle: 'active',
         showFilters: true,
         selectMultiple: false

@@ -1,7 +1,7 @@
 /*!
  * ht-table
  * https://github.com/hightest/angular-table
- * Version: 0.0.1 - 2015-05-26T13:02:53.080Z
+ * Version: 0.0.1 - 2015-06-01T11:01:51.465Z
  * License: 
  */
 
@@ -109,6 +109,7 @@
                 self.filterFields = [{name: "Wszędzie", field: "$"}].concat(settings.fields);
                 self.selectFilters = settings.selectFilters;
                 self.expanded = settings.expanded;
+                settings.comparator = settings.comparator || defaultComparator;
 
                 prepareFields();
             }
@@ -160,7 +161,7 @@
                 var length = sortedData.length;
                 var position = 0;
                 for (var i = 0; i < length; i++) {
-                    if (angular.equals(sortedData[i], object)) {
+                    if (settings.comparator(sortedData[i], object)) {
                         position = i;
                         break;
                     }
@@ -168,6 +169,10 @@
                 self.expanded = sortedData[i];
                 settings.pagination.current = parseInt(position / settings.pagination.itemsPerPage) + 1;
                 initPagination();
+            }
+
+            function defaultComparator(object1, object2) {
+                return angular.equals(object1, object2);
             }
 
             function prepareFields() {
