@@ -264,13 +264,19 @@
                 var result = 0;
 
                 var count = filteredData.length;
+                var resultAll = 0;
+                var isAll = true;
+
                 for (var i = 0; i < count; i++) {
                     var row = filteredData[i];
-                    if (angular.isDefined(row.$htTable) && row.$htTable.selected)
+                    resultAll += row[field];
+                    if (angular.isDefined(row.$htTable) && row.$htTable.selected) {
                         result += row[field];
+                        isAll = false;
+                    }
                 }
 
-                return result;
+                return isAll ? resultAll : result;
             }
 
             function updateSums() {

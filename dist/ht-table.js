@@ -1,7 +1,7 @@
 /*!
  * ht-table
  * https://github.com/hightest/angular-table
- * Version: 0.0.1 - 2015-06-01T11:01:51.465Z
+ * Version: 0.0.1 - 2015-06-10T13:18:15.705Z
  * License: 
  */
 
@@ -272,13 +272,19 @@
                 var result = 0;
 
                 var count = filteredData.length;
+                var resultAll = 0;
+                var isAll = true;
+
                 for (var i = 0; i < count; i++) {
                     var row = filteredData[i];
-                    if (angular.isDefined(row.$htTable) && row.$htTable.selected)
+                    resultAll += row[field];
+                    if (angular.isDefined(row.$htTable) && row.$htTable.selected) {
                         result += row[field];
+                        isAll = false;
+                    }
                 }
 
-                return result;
+                return isAll ? resultAll : result;
             }
 
             function updateSums() {
