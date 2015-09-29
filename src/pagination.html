@@ -2,7 +2,7 @@
     <pagination boundary-links="true" ng-if="htTable.pagination.itemsPerPage <= htTable.pagination.total && htTable.pagination.itemsPerPage != 0" total-items="htTable.pagination.total" ng-model="htTable.pagination.current" ng-change="htTable.updatePagination()" max-size="5" items-per-page="htTable.pagination.itemsPerPage" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
 </div>
 <div class="btn-group col-xs-6" ng-if="htTable.pagination.total > 10">
-    <label class="btn btn-primary" ng-model="htTable.pagination.itemsPerPage" ng-change="htTable.updatePagination()" btn-radio="2">10</label>
+    <label class="btn btn-primary" ng-model="htTable.pagination.itemsPerPage" ng-change="htTable.updatePagination()" btn-radio="10">10</label>
     <label class="btn btn-primary" ng-model="htTable.pagination.itemsPerPage"  ng-change="htTable.updatePagination()" btn-radio="25">25</label>
     <label class="btn btn-primary" ng-if="htTable.pagination.total > 25"  ng-change="htTable.updatePagination()" ng-model="htTable.pagination.itemsPerPage" btn-radio="50">50</label>
     <label class="btn btn-primary" ng-if="htTable.pagination.total > 50"  ng-change="htTable.updatePagination()" ng-model="htTable.pagination.itemsPerPage" btn-radio="100">100</label>

@@ -83,6 +83,9 @@ angular.module('demo', ['ht.tables']).controller('DemoCtrl', function ($scope, $
                 ]
             }
         ],
+        sorting: [
+            {field: 'age', sort: 'desc'}
+        ],
         expanded: deferred.promise,
         expand: true,
         comparator: function(object1, object2) {return true;},
