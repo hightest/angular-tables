@@ -41,16 +41,6 @@ angular.module('demo', ['ht.tables']).controller('DemoCtrl', function ($scope, $
      * pobranie nowych danych
      */
     var deferred2 = $q.defer();
-    //$timeout(function() {
-    //    console.log('load new data');
-    //    deferred2.promise.then(function(result) {
-    //        angular.copy(result, $scope.data);
-    //    });
-    //    $timeout(function() {
-    //        console.log('resolve new data');
-    //        deferred2.resolve([{id: 1, name: "Enos", age: 34}]);
-    //    }, 2000);
-    //}, 5000);
 
     $scope.settings = {
         id: 'table-id',
@@ -68,12 +58,11 @@ angular.module('demo', ['ht.tables']).controller('DemoCtrl', function ($scope, $
             {
                 name: 'Template',
                 type: 'template',
+                value: function(element) {return element.name + '!';},
                 templateUrl: 'template.html'
             }
         ],
-        filters: [
-           // {field: "age", value: "50", filter: "filter"}
-        ],
+        filters: [],
         selectFilters: [
             {
                 name: "W wieku",

@@ -1,7 +1,7 @@
 /*!
  * ht-table
  * https://github.com/hightest/angular-table
- * Version: 0.0.1 - 2015-09-29T07:34:27.975Z
+ * Version: 0.0.1 - 2015-10-12T12:52:47.915Z
  * License: 
  */
 
@@ -115,6 +115,7 @@
             }
 
             function postInit() {
+                setCustomFields();
                 initFiltering();
                 if (null !== settings.expanded) {
                     $q.when(settings.expanded).then(function(result) {
@@ -122,6 +123,52 @@
                         goToRow(result);
                     });
                 }
+            }
+
+            function setCustomFields() {
+                var fields = getCustomFields();
+                var fieldsCount = fields.length;
+
+                if (!fieldsCount) {
+                    return;
+                }
+
+                var dataLength = originalData.length;
+
+                for (var i = 0; i < dataLength; i++) {
+                    var row = originalData[i];
+
+                    setCustomFieldsInRow(row, fields);
+                }
+            }
+
+            function setCustomFieldsInRow(row, fields) {
+                var count = fields.length;
+
+                if (!angular.isDefined(row.$htTable)) {
+                    row.$htTable = {};
+                }
+
+                for (var i = 0; i < count; i++) {
+                    row.$htTable['field' + fields[i].index] = fields[i].value(row);
+                }
+            }
+
+            function getCustomFields() {
+                var fieldsCount = self.fields.length;
+
+                var result = [];
+
+                for (var i = 0; i < fieldsCount; i++) {
+                    var field = self.fields[i];
+                    if (angular.isDefined(field.value)) {
+                        field.index = i;
+                        field.field = '$htTable.field' + i;
+                        result.push(field);
+                    }
+                }
+
+                return result;
             }
 
             function initFiltering() {
