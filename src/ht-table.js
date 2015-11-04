@@ -107,6 +107,7 @@
             }
 
             function postInit() {
+                settings.expanded = $scope.settings.expanded;
                 setCustomFields();
                 initFiltering();
                 if (null !== settings.expanded) {

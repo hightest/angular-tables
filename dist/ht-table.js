@@ -1,7 +1,7 @@
 /*!
  * ht-table
  * https://github.com/hightest/angular-table
- * Version: 0.0.1 - 2015-10-12T12:52:47.915Z
+ * Version: 0.0.1 - 2015-11-04T09:49:01.814Z
  * License: 
  */
 
@@ -115,6 +115,7 @@
             }
 
             function postInit() {
+                settings.expanded = $scope.settings.expanded;
                 setCustomFields();
                 initFiltering();
                 if (null !== settings.expanded) {
