@@ -1,7 +1,7 @@
 /*!
  * ht-table
  * https://github.com/hightest/angular-table
- * Version: 0.0.1 - 2015-11-04T09:49:01.814Z
+ * Version: 0.0.1 - 2015-11-12T14:12:51.786Z
  * License: 
  */
 
@@ -105,7 +105,7 @@
                 self.data = [];
                 self.fieldFilter = { visible: true };
                 self.pagination = settings.pagination;
-                self.filters = settings.filters;
+                self.filters = $scope.settings.filters;
                 self.filterFields = [{name: "Wszędzie", field: "$"}].concat(settings.fields);
                 self.selectFilters = settings.selectFilters;
                 self.expanded = settings.expanded;

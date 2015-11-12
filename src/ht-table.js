@@ -97,7 +97,7 @@
                 self.data = [];
                 self.fieldFilter = { visible: true };
                 self.pagination = settings.pagination;
-                self.filters = settings.filters;
+                self.filters = $scope.settings.filters ? $scope.settings.filters : [];
                 self.filterFields = [{name: "Wszędzie", field: "$"}].concat(settings.fields);
                 self.selectFilters = settings.selectFilters;
                 self.expanded = settings.expanded;
