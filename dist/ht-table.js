@@ -1,7 +1,7 @@
 /*!
  * ht-table
  * https://github.com/hightest/angular-table
- * Version: 0.0.1 - 2015-11-12T14:12:51.786Z
+ * Version: 0.0.1 - 2015-12-03T12:41:22.916Z
  * License: 
  */
 
@@ -105,7 +105,7 @@
                 self.data = [];
                 self.fieldFilter = { visible: true };
                 self.pagination = settings.pagination;
-                self.filters = $scope.settings.filters;
+                self.filters = $scope.settings.filters ? $scope.settings.filters : [];
                 self.filterFields = [{name: "Wszędzie", field: "$"}].concat(settings.fields);
                 self.selectFilters = settings.selectFilters;
                 self.expanded = settings.expanded;
@@ -477,6 +477,7 @@
                         var valueLength = value.length;
                         for (var i = 0; i < valueLength; i++) {
                             var newData = data.slice();
+                            value[i] = convertValue(value[i]);
                             if (key == 'filter' && angular.isDefined(value[i].$) && value[i].$.length) {
                                 var old = value[i].$;
                                 var values = old.split(' ');

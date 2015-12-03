@@ -469,6 +469,7 @@
                         var valueLength = value.length;
                         for (var i = 0; i < valueLength; i++) {
                             var newData = data.slice();
+                            value[i] = convertValue(value[i]);
                             if (key == 'filter' && angular.isDefined(value[i].$) && value[i].$.length) {
                                 var old = value[i].$;
                                 var values = old.split(' ');
