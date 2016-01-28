@@ -57,6 +57,8 @@
             self.sum = sum;
             self.sums = {};
             self.countColumns = countColumns;
+            self.allSelected = false;
+            self.selectAll = selectAll;
             var singleSelect = null;
 
             $q.when($scope.data).then(function(result) {
@@ -276,6 +278,17 @@
                 } else {
                     self.data = sortedData;
                 }
+
+                if (settings.selectMultiple) {
+                    self.allSelected = true;
+                    for (var i = 0, len = self.data.length; i < len; i++) {
+                        if (self.data[i].$htTable.selected !== true) {
+                            self.allSelected = false;
+                            break;
+                        }
+                    }
+
+                }
             }
 
             function showPagination() {
@@ -317,9 +330,9 @@
 
                 for (var i = 0; i < count; i++) {
                     var row = filteredData[i];
-                    resultAll += row[field];
+                    resultAll += getValue(field, row);
                     if (angular.isDefined(row.$htTable) && row.$htTable.selected) {
-                        result += row[field];
+                        result += getValue(field, row);
                         isAll = false;
                     }
                 }
@@ -633,6 +646,14 @@
                 }
 
                 return result;
+            }
+
+
+
+            function selectAll() {
+                for (var i = 0, len = self.data.length; i < len; i++) {
+                    self.data[i].$htTable.selected = self.allSelected;
+                }
             }
         }
     }

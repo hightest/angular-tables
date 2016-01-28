@@ -9,7 +9,7 @@
         </div>
     </th>
     <th ng-if="htTable.selectMultiple()">
-
+        <input type="checkbox" ng-model="htTable.allSelected" ng-change="htTable.selectAll()">
     </th>
     <th ng-repeat="field in htTable.fields | field" ng-click="htTable.changeSorting(field, $event)" ng-class="htTable.getFieldClass(field)" style="cursor:pointer">
         {{field.name}}

@@ -19,7 +19,7 @@
             <td ng-if="htTable.selectMultiple()">&nbsp;</td>
             <td ng-repeat="field in htTable.fields | field">
                     <span ng-if="field.type == 'sum'">
-                        Suma: {{htTable.sum(field.field) | number:2}}
+                        Suma: {{htTable.sum(field) | number:2}}
                     </span>
             </td>
         </tr>
@@ -28,3 +28,4 @@
 </div>
 
 <div class="row" ng-include="'ht-table/pagination.html'" ng-if="htTable.showPagination()"></div>
+{{htTable.data}}
