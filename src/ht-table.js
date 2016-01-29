@@ -661,6 +661,9 @@
 
             function selectAll() {
                 for (var i = 0, len = self.data.length; i < len; i++) {
+                    if (!self.data[i].$htTable) {
+                        self.data[i].$htTable = {};
+                    }
                     self.data[i].$htTable.selected = self.allSelected;
                 }
             }
