@@ -53,7 +53,8 @@ angular.module('demo', ['ht.tables']).controller('DemoCtrl', function ($scope, $
             {
                 name: 'wiek',
                 field: 'age.age',
-                type: 'sum'
+                type: 'sum',
+                filter: 'currency'
             },
             {
                 name: 'a',

@@ -20,7 +20,7 @@
             <td ng-if="htTable.selectMultiple()">&nbsp;</td>
             <td ng-repeat="field in htTable.fields | field">
                 <span ng-if="field.type == 'sum'">
-                    Suma: {{htTable.sum(field) | number:2}}
+                    Suma: {{htTable.sum(field)}}
                 </span>
             </td>
         </tr>
