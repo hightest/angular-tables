@@ -330,9 +330,9 @@
 
                 for (var i = 0; i < count; i++) {
                     var row = filteredData[i];
-                    resultAll += getValue(field, row, raw);
+                    resultAll += getValue(field, row, true);
                     if (angular.isDefined(row.$htTable) && row.$htTable.selected) {
-                        result += getValue(field, row, raw);
+                        result += getValue(field, row, true);
                         isAll = false;
                     }
                 }
@@ -627,6 +627,7 @@
                 var data = originalData;
                 var count = data.length;
                 var result = [];
+                var resultSelected = [];
                 for (var i = 0; i < count; i++) {
                     var row = [];
                     for (var k = 0; k < self.fields.length; k++) {
@@ -634,9 +635,12 @@
                         if (!field.visible || angular.isUndefined(field.field)) continue;
                         row.push(getValue(field, data[i]));
                     }
+                    if (data[i].$htTable && data[i].$htTable.selected) {
+                        resultSelected.push(row);
+                    }
                     result.push(row);
                 }
-                return result;
+                return resultSelected.length ? resultSelected : result;
             }
 
             function exportHeader() {
@@ -826,15 +830,17 @@
         };
     }
 
-    function htTableTemplateDirective() {
+    function htTableTemplateDirective($compile) {
         return {
             require: '^ngModel',
             scope: {
                 row: '=ngModel',
                 template: '=htTableTemplate'
             },
-            controller:
-        }
+            controller: function($scope, $element) {
+                $element.append($compile($scope.template)($scope));
+            }
+        };
     }
 
     angular.module('ht.tables', ['ui.bootstrap', 'naturalSort', 'ngSanitize', 'ngCsv'])

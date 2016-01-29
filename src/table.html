@@ -6,7 +6,7 @@
             <td>{{ htTable.getIndex() + $index + 1 }}.</td>
             <th scope="row" ng-if="htTable.selectMultiple()" ng-include="'ht-table/checkbox.html'"></th>
             <td ng-repeat="field in htTable.fields | field" ng-click="htTable.expand(row)">
-                <div ng-if="field.template" htTableTemplate="field.template" ng-model="row"></div>
+                <div ng-if="field.template" ht-table-template="field.template" ng-model="row"></div>
                 <div ng-if="!field.templateUrl && !field.template">{{htTable.getValue(field, row)}}</div>
                 <div ng-if="field.templateUrl" ng-click="$event.stopPropagation()" ng-include="field.templateUrl"></div>
             </td>

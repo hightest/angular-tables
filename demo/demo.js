@@ -64,6 +64,12 @@ angular.module('demo', ['ht.tables']).controller('DemoCtrl', function ($scope, $
                 type: 'template',
                 value: function(element) {return element.name + '!';},
                 templateUrl: 'template.html'
+            },
+            {
+                name: 'Template 2',
+                type: 'template',
+                template: '<div>{{row.id}}</div>',
+                value: function(element) {return element.id},
             }
         ],
         filters: [],
