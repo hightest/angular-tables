@@ -330,11 +330,16 @@
 
                 for (var i = 0; i < count; i++) {
                     var row = filteredData[i];
-                    resultAll += getValue(field, row);
+                    resultAll += getValue(field, row, raw);
                     if (angular.isDefined(row.$htTable) && row.$htTable.selected) {
-                        result += getValue(field, row);
+                        result += getValue(field, row, raw);
                         isAll = false;
                     }
+                }
+
+                if (angular.isDefined(field.filter)) {
+                    result = $filter(field.filter)(result);
+                    resultAll = $filter(field.filter)(resultAll);
                 }
 
                 return isAll ? resultAll : result;
@@ -346,7 +351,7 @@
                 return deferred.promise;
             }
 
-            function getValue(field, row) {
+            function getValue(field, row, raw) {
                 if (angular.isUndefined(field.field)) return;
                 var value = field.field;
                 var arrayField = value.split('.');
@@ -362,7 +367,7 @@
                     }
                 }
 
-                if (angular.isDefined(field.filter)) {
+                if (angular.isDefined(field.filter) && !raw) {
                     result = $filter(field.filter)(result);
                 }
 
@@ -821,9 +826,21 @@
         };
     }
 
+    function htTableTemplateDirective() {
+        return {
+            require: '^ngModel',
+            scope: {
+                row: '=ngModel',
+                template: '=htTableTemplate'
+            },
+            controller:
+        }
+    }
+
     angular.module('ht.tables', ['ui.bootstrap', 'naturalSort', 'ngSanitize', 'ngCsv'])
         .directive('htTable', htTableDirective)
         .directive('htFocus', htFocusDirective)
+        .directive('htTableTemplate', htTableTemplateDirective)
         .filter('greaterThanOrEqualTo', GreaterThanOrEqualToFilter)
         .filter('lessThanOrEqualTo', LessThanOrEqualToFilter)
         .filter('natural', NaturalFilter)
