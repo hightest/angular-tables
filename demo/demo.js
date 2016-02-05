@@ -17,8 +17,8 @@ angular.module('demo', ['ht.tables']).controller('DemoCtrl', function ($scope, $
             {id: 1, name: "Tiancum", age: 43},
             {id: 1, name: "Jacob", age: 27},
             {id: 1, name: "Nephi", age: 29},
-            {id: 1, name: "Enos", age: 33},
-            {id: 1, name: "Tiancum", age: 43},
+            {id: 1, name: "Enos", age: 50},
+            {id: 1, name: "Tiancum", age: 50},
             {id: 1, name: "Jacob", age: 27},
             {id: 1, name: "Nephi", age: 29},
             {id: 1, name: "Enos", age: 34},
@@ -78,8 +78,8 @@ angular.module('demo', ['ht.tables']).controller('DemoCtrl', function ($scope, $
             {
                 name: "W wieku",
                 options: [
-                    {name: "50 lat", field: "age.age", value: 50, type: "filter"},
-                    {name: "34 lat", field: "age.age", value: 34, type: "filter"}
+                    {name: "50 lat", field: function(row) {return row.age;}, value: 50, type: "filter"},
+                    {name: "34 lat", field: function(row) {return row.age;}, value: 34, type: "filter"}
                 ]
             }
         ],
