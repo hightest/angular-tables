@@ -89,11 +89,14 @@
                     selectFilters: [],
                     sorting: [],
                     selectMultiple: false,
+                    //customScope: null,
                     expanded: null,
                     expand: false,
                     onClick: function() {}
                 };
 
+                self.customScope = $scope.settings.customScope;
+                $scope.settings.customScope = null;
                 settings = angular.merge({}, oldSettings, $scope.settings);
                 settings.expanded = $scope.settings.expanded;
                 self.data = [];
@@ -343,12 +346,6 @@
                 }
 
                 return isAll ? resultAll : result;
-            }
-
-            function updateSums() {
-                var deferred = $q.defer();
-
-                return deferred.promise;
             }
 
             function getValue(field, row, raw) {
@@ -876,9 +873,11 @@
             require: '^ngModel',
             scope: {
                 row: '=ngModel',
-                template: '=htTableTemplate'
+                template: '=htTableTemplate',
+                customScope: '='
             },
             controller: function($scope, $element) {
+                console.log($scope);
                 $element.append($compile($scope.template)($scope));
             }
         };

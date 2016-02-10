@@ -7,6 +7,9 @@ angular.module('demo', ['ht.tables']).controller('DemoCtrl', function ($scope, $
         angular.copy(result, $scope.data);
     });
 
+    $scope.message = function() {
+        console.log('message');
+    };
     $timeout(function() {
         defer.resolve([
             {id: 1, name: "Moroni", age:{age: 50}, a: {b: 'a'}},
@@ -69,11 +72,12 @@ angular.module('demo', ['ht.tables']).controller('DemoCtrl', function ($scope, $
             {
                 name: 'Template 2',
                 type: 'template',
-                template: '<div>{{row.id}}</div>',
-                value: function(element) {return element.id},
+                template: '<div ng-click="customScope.message()">{{row.id}}</div>',
+                value: function(element) {return element.id;}
             }
         ],
         filters: [],
+        customScope: $scope,
         selectFilters: [
             {
                 name: "W wieku",
