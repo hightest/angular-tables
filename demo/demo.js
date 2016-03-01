@@ -12,7 +12,7 @@ angular.module('demo', ['ht.tables']).controller('DemoCtrl', function ($scope, $
     };
     $timeout(function() {
         defer.resolve([
-            {id: 1, name: "Moroni", age:{age: 50}, a: {b: 'a'}},
+            {id: 1, name: "Moroni", age: 50, a: {b: 'a'}},
             {id: 1, name: "Moróni", age: 43, a: {b: 'b'}},
             {id: 1, name: "Jacob", age: 27},
             {id: 1, name: "Nephi", age: 29},
@@ -55,8 +55,8 @@ angular.module('demo', ['ht.tables']).controller('DemoCtrl', function ($scope, $
             },
             {
                 name: 'wiek',
-                field: 'age.age',
-                type: 'sum',
+                field: 'age',
+                type: ['avg', 'sum'],
                 filter: 'currency'
             },
             {

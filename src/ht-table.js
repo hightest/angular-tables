@@ -59,6 +59,7 @@
             self.countColumns = countColumns;
             self.allSelected = false;
             self.selectAll = selectAll;
+            self.avg = avg;
             var singleSelect = null;
 
             $q.when($scope.data).then(function(result) {
@@ -315,10 +316,26 @@
                 return '';
             }
 
+            var specialFields = [
+                'sum', 'avg'
+            ];
+
             function hasSum() {
                 for (var i = 0, count = self.fields.length; i < count; i++) {
-                    if (angular.isDefined(self.fields[i].type) && self.fields[i].type == 'sum')
-                        return true;
+                    if (angular.isDefined(self.fields[i].type)) {
+                        if (angular.isArray(self.fields[i].type)) {
+                            for (var j = 0; j < self.fields[i].type.length; j++) {
+                                if (specialFields.indexOf(self.fields[i].type[j]) !== -1) {
+                                    return true;
+                                }
+                            }
+                        } else {
+                            if (specialFields.indexOf(self.fields[i].type) !== -1) {
+                                return true;
+                            }
+                        }
+
+                    }
                 }
 
                 return false;
@@ -343,6 +360,32 @@
                 if (angular.isDefined(field.filter)) {
                     result = $filter(field.filter)(result);
                     resultAll = $filter(field.filter)(resultAll);
+                }
+
+                return isAll ? resultAll : result;
+            }
+
+            function avg(field) {
+                var result = 0;
+
+                var count = filteredData.length;
+                var countElements = 0;
+                var resultAll = 0;
+                var isAll = true;
+
+                for (var i = 0; i < count; i++) {
+                    var row = filteredData[i];
+                    resultAll += getValue(field, row, true);
+                    if (angular.isDefined(row.$htTable) && row.$htTable.selected) {
+                        result += getValue(field, row, true);
+                        countElements++;
+                        isAll = false;
+                    }
+                }
+
+                if (angular.isDefined(field.filter)) {
+                    result = $filter(field.filter)(result / countElements);
+                    resultAll = $filter(field.filter)(resultAll / count);
                 }
 
                 return isAll ? resultAll : result;

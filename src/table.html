@@ -19,8 +19,11 @@
             <td>&nbsp;</td>
             <td ng-if="htTable.selectMultiple()">&nbsp;</td>
             <td ng-repeat="field in htTable.fields | field">
-                <span ng-if="field.type == 'sum'">
-                    Suma: {{htTable.sum(field)}}
+                <span ng-if="field.type && (field.type == 'sum' || field.type.indexOf('sum') !== -1)">
+                    Suma: {{htTable.sum(field)}} <br />
+                </span>
+                <span ng-if="field.type && (field.type == 'avg' || field.type.indexOf('avg') !== -1)">
+                    Średnia: {{htTable.avg(field)}}
                 </span>
             </td>
         </tr>
