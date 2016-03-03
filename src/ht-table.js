@@ -105,6 +105,7 @@
                 self.pagination = settings.pagination;
                 self.filters = $scope.settings.filters ? $scope.settings.filters : [];
                 self.filterFields = [{name: "Wszędzie", field: "$"}].concat(settings.fields);
+                settings.fields = $scope.settings.fields;
                 self.selectFilters = settings.selectFilters;
                 self.expanded = settings.expanded;
                 settings.comparator = settings.comparator || defaultComparator;

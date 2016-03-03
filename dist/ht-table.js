@@ -1,7 +1,7 @@
 /*!
  * ht-table
  * https://github.com/hightest/angular-table
- * Version: 0.0.1 - 2016-03-01T14:03:15.229Z
+ * Version: 0.0.1 - 2016-03-03T10:16:56.907Z
  * License: 
  */
 
@@ -113,6 +113,7 @@
                 self.pagination = settings.pagination;
                 self.filters = $scope.settings.filters ? $scope.settings.filters : [];
                 self.filterFields = [{name: "Wszędzie", field: "$"}].concat(settings.fields);
+                settings.fields = $scope.settings.fields;
                 self.selectFilters = settings.selectFilters;
                 self.expanded = settings.expanded;
                 settings.comparator = settings.comparator || defaultComparator;

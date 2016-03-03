@@ -10,6 +10,11 @@ angular.module('demo', ['ht.tables']).controller('DemoCtrl', function ($scope, $
     $scope.message = function() {
         console.log('message');
     };
+
+    $scope.change = function() {
+        $scope.settings.fields[0].name = 'a';
+    };
+
     $timeout(function() {
         defer.resolve([
             {id: 1, name: "Moroni", age: 50, a: {b: 'a'}},
