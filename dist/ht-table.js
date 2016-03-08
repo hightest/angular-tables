@@ -1,7 +1,7 @@
 /*!
  * ht-table
  * https://github.com/hightest/angular-table
- * Version: 0.0.1 - 2016-03-03T10:16:56.907Z
+ * Version: 0.0.1 - 2016-03-08T08:54:23.150Z
  * License: 
  */
 
@@ -112,6 +112,7 @@
                 self.fieldFilter = { visible: true };
                 self.pagination = settings.pagination;
                 self.filters = $scope.settings.filters ? $scope.settings.filters : [];
+                settings.sorting = $scope.settings.sorting ? $scope.settings.sorting : [];
                 self.filterFields = [{name: "Wszędzie", field: "$"}].concat(settings.fields);
                 settings.fields = $scope.settings.fields;
                 self.selectFilters = settings.selectFilters;
@@ -440,7 +441,9 @@
                     if (sort == 'asc') {
                         settings.sorting[fieldPosition].sort = 'desc';
                         if (!shift) {
-                            settings.sorting = [settings.sorting[fieldPosition]];
+                            var fieldA = settings.sorting[fieldPosition];
+                            settings.sorting.length = 0;
+                            settings.sorting.push(fieldA);
                         }
                     } else {
                         if (shift)
@@ -457,8 +460,14 @@
                     }
                 }
 
-                initSorting();
+                // initSorting();
             }
+
+            $scope.$watch(function() {
+                return settings.sorting;
+            }, function() {
+                initSorting();
+            }, true);
 
             function findField(field) {
                 for (var i = 0; i < settings.sorting.length; i++) {
@@ -490,6 +499,13 @@
                     value: ''
                 });
             }
+
+            $scope.$watch(function() {
+                return self.filters.length;
+            }, function() {
+                updateFilter();
+            });
+            
 
             function removeFilter(index) {
                 var filterValue = self.filters[index].value;

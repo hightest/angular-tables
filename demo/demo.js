@@ -10,6 +10,14 @@ angular.module('demo', ['ht.tables']).controller('DemoCtrl', function ($scope, $
     $scope.message = function() {
         console.log('message');
     };
+    
+    $scope.addFilter = function() {
+        $scope.settings.filters.push({"filter":"filter","field":"$","value":"as"});
+    };
+
+    $scope.addSort = function() {
+        $scope.settings.sorting.push({"field":"age","sort":"desc"});
+    };
 
     $scope.change = function() {
         $scope.settings.fields[0].name = 'a';
