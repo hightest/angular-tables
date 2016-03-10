@@ -110,7 +110,7 @@ angular.module('demo', ['ht.tables']).controller('DemoCtrl', function ($scope, $
         comparator: function(object1, object2) {return true;},
         activeStyle: 'active',
         showFilters: true,
-        selectMultiple: true
+        selectMultiple: false
     };
 });
 angular.module('demo').run(function($templateCache) {
