@@ -1,7 +1,7 @@
 /*!
  * ht-table
  * https://github.com/hightest/angular-table
- * Version: 0.0.1 - 2016-03-08T08:54:23.150Z
+ * Version: 0.0.1 - 2016-03-10T15:00:09.544Z
  * License: 
  */
 
@@ -501,11 +501,11 @@
             }
 
             $scope.$watch(function() {
-                return self.filters.length;
+                return self.filters;
             }, function() {
                 updateFilter();
-            });
-            
+            }, true);
+
 
             function removeFilter(index) {
                 var filterValue = self.filters[index].value;
@@ -945,7 +945,6 @@
                 customScope: '='
             },
             controller: function($scope, $element) {
-                console.log($scope);
                 $element.append($compile($scope.template)($scope));
             }
         };
@@ -1073,7 +1072,7 @@ angular.module("naturalSort", [])
         };
     }]);
 angular.module("ht.tables").run(["$templateCache", function($templateCache) {$templateCache.put("ht-table/checkbox.html","<input type=\"checkbox\" ng-model=\"row.$htTable.selected\" ng-change=\"table.checkedChange()\">");
-$templateCache.put("ht-table/filters.html","<div class=\"form-inline\" ng-repeat=\"filter in htTable.filters\"><div class=\"form-group\"><select class=\"form-control\" ng-model=\"filter.filter\" ng-change=\"htTable.updateFilter()\" ng-options=\"filterType.value as filterType.name for filterType in htTable.filterTypes\"></select></div><div class=\"form-group\"><select class=\"form-control\" ng-model=\"filter.field\" ng-change=\"htTable.updateFilter()\" ng-options=\"field.field as field.name for field in htTable.filterFields\"></select></div><div class=\"form-group\"><input class=\"form-control\" ng-change=\"htTable.updateFilter()\" type=\"text\" ng-model=\"filter.value\" ht-focus=\"\"></div><div class=\"form-group\"><span class=\"glyphicon glyphicon-remove-circle\" ng-click=\"htTable.removeFilter($index)\"></span></div></div><button type=\"button\" class=\"btn btn-default\" ng-click=\"htTable.addFilter()\">Dodaj filtr</button><h4 ng-repeat-start=\"field in htTable.selectFilters\">{{field.name}}</h4><div class=\"btn-group\" ng-repeat-end=\"\"><label ng-repeat=\"option in field.options\" class=\"btn btn-success\" ng-change=\"htTable.updateFilter()\" ng-model=\"option.selected\" btn-radio=\"1\" btn-checkbox=\"\">{{option.name}}</label></div>");
+$templateCache.put("ht-table/filters.html","<div class=\"form-inline\" ng-repeat=\"filter in htTable.filters\"><div class=\"form-group\"><select class=\"form-control\" ng-model=\"filter.filter\" ng-options=\"filterType.value as filterType.name for filterType in htTable.filterTypes\"></select></div><div class=\"form-group\"><select class=\"form-control\" ng-model=\"filter.field\" ng-options=\"field.field as field.name for field in htTable.filterFields\"></select></div><div class=\"form-group\"><input class=\"form-control\" type=\"text\" ng-model=\"filter.value\" ht-focus=\"\"></div><div class=\"form-group\"><span class=\"glyphicon glyphicon-remove-circle\" ng-click=\"htTable.removeFilter($index)\"></span></div></div><button type=\"button\" class=\"btn btn-default\" ng-click=\"htTable.addFilter()\">Dodaj filtr</button><h4 ng-repeat-start=\"field in htTable.selectFilters\">{{field.name}}</h4><div class=\"btn-group\" ng-repeat-end=\"\"><label ng-repeat=\"option in field.options\" class=\"btn btn-success\" ng-change=\"htTable.updateFilter()\" ng-model=\"option.selected\" btn-radio=\"1\" btn-checkbox=\"\">{{option.name}}</label></div>");
 $templateCache.put("ht-table/header.html","<tr><th><div dropdown=\"\" class=\"btn-group\"><button class=\"btn btn-default dropdown-toggle\" type=\"button\" dropdown-toggle=\"\"><span class=\"glyphicon glyphicon-cog\" aria-hidden=\"true\"></span></button><ul class=\"dropdown-menu\" role=\"menu\" ng-click=\"$event.stopPropagation()\"><li ng-repeat=\"field in htTable.fields\"><label><input type=\"checkbox\" ng-model=\"field.visible\">{{field.name}}</label></li><button class=\"btn btn-primary\" ng-csv=\"htTable.export()\" csv-header=\"htTable.exportHeader()\" filename=\"export.csv\">Eksportuj</button></ul></div></th><th ng-if=\"htTable.selectMultiple()\"><input type=\"checkbox\" ng-model=\"htTable.allSelected\" ng-change=\"htTable.selectAll()\"></th><th ng-repeat=\"field in htTable.fields | field\" ng-click=\"htTable.changeSorting(field, $event)\" ng-class=\"htTable.getFieldClass(field)\" style=\"cursor:pointer\">{{field.name}}</th></tr>");
 $templateCache.put("ht-table/layout.html","<div id=\"ng-table\"><div ng-if=\"htTable.showFilters()\" ng-include=\"\'ht-table/filters.html\'\"></div><h4 ng-repeat-start=\"field in filter.select\">{{field.name}}</h4><div class=\"btn-group\" ng-repeat-end=\"\"><label ng-repeat=\"option in field.options\" class=\"btn btn-success\" ng-change=\"filter.update()\" ng-model=\"option.selected\" btn-radio=\"1\" btn-checkbox=\"\">{{option.name}}</label></div><div ng-include=\"\'ht-table/table.html\'\"></div></div>");
 $templateCache.put("ht-table/pagination.html","<div class=\"col-xs-6\"><pagination boundary-links=\"true\" ng-if=\"htTable.pagination.itemsPerPage <= htTable.pagination.total && htTable.pagination.itemsPerPage != 0\" total-items=\"htTable.pagination.total\" ng-model=\"htTable.pagination.current\" ng-change=\"htTable.updatePagination()\" max-size=\"5\" items-per-page=\"htTable.pagination.itemsPerPage\" previous-text=\"&lsaquo;\" next-text=\"&rsaquo;\" first-text=\"&laquo;\" last-text=\"&raquo;\"></pagination></div><div class=\"btn-group col-xs-6\" ng-if=\"htTable.pagination.total > 10\"><label class=\"btn btn-primary\" ng-model=\"htTable.pagination.itemsPerPage\" ng-change=\"htTable.updatePagination()\" btn-radio=\"10\">10</label> <label class=\"btn btn-primary\" ng-model=\"htTable.pagination.itemsPerPage\" ng-change=\"htTable.updatePagination()\" btn-radio=\"25\">25</label> <label class=\"btn btn-primary\" ng-if=\"htTable.pagination.total > 25\" ng-change=\"htTable.updatePagination()\" ng-model=\"htTable.pagination.itemsPerPage\" btn-radio=\"50\">50</label> <label class=\"btn btn-primary\" ng-if=\"htTable.pagination.total > 50\" ng-change=\"htTable.updatePagination()\" ng-model=\"htTable.pagination.itemsPerPage\" btn-radio=\"100\">100</label> <label class=\"btn btn-primary\" ng-model=\"htTable.pagination.itemsPerPage\" ng-change=\"htTable.updatePagination()\" btn-radio=\"0\">Wszystkie</label></div>");

@@ -7,11 +7,13 @@ angular.module('demo', ['ht.tables']).controller('DemoCtrl', function ($scope, $
         angular.copy(result, $scope.data);
     });
 
-    $scope.message = function() {
+    $scope.message = function(row) {
         console.log('message');
+        console.log(row);
     };
     
     $scope.addFilter = function() {
+        $scope.settings.filters.length = 0;
         $scope.settings.filters.push({"filter":"filter","field":"$","value":"as"});
     };
 
@@ -85,7 +87,7 @@ angular.module('demo', ['ht.tables']).controller('DemoCtrl', function ($scope, $
             {
                 name: 'Template 2',
                 type: 'template',
-                template: '<div ng-click="customScope.message()">{{row.id}}</div>',
+                template: '<div ng-click="customScope.message(row)">{{row.id}}</div>',
                 value: function(element) {return element.id;}
             }
         ],

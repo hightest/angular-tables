@@ -2,18 +2,15 @@
     <div class="form-group">
         <select class="form-control"
                 ng-model="filter.filter"
-                ng-change="htTable.updateFilter()"
                 ng-options="filterType.value as filterType.name for filterType in htTable.filterTypes"></select>
     </div>
     <div class="form-group">
         <select class="form-control"
                 ng-model="filter.field"
-                ng-change="htTable.updateFilter()"
                 ng-options="field.field as field.name for field in htTable.filterFields"></select>
     </div>
     <div class="form-group">
         <input class="form-control"
-               ng-change="htTable.updateFilter()"
                type="text"
                ng-model="filter.value"
                ht-focus />

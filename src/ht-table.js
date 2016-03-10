@@ -493,10 +493,10 @@
             }
 
             $scope.$watch(function() {
-                return self.filters.length;
+                return self.filters;
             }, function() {
                 updateFilter();
-            });
+            }, true);
 
 
             function removeFilter(index) {
@@ -937,7 +937,6 @@
                 customScope: '='
             },
             controller: function($scope, $element) {
-                console.log($scope);
                 $element.append($compile($scope.template)($scope));
             }
         };
