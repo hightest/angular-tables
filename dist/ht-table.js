@@ -1,7 +1,7 @@
 /*!
  * ht-table
  * https://github.com/hightest/angular-table
- * Version: 0.0.1 - 2016-03-10T15:00:09.544Z
+ * Version: 0.0.1 - 2016-03-10T16:02:21.903Z
  * License: 
  */
 
@@ -361,7 +361,7 @@
                 for (var i = 0; i < count; i++) {
                     var row = filteredData[i];
                     resultAll += getValue(field, row, true);
-                    if (angular.isDefined(row.$htTable) && row.$htTable.selected) {
+                    if (angular.isDefined(row.$htTable) && row.$htTable.selected && self.settings.selectMultiple) {
                         result += getValue(field, row, true);
                         isAll = false;
                     }

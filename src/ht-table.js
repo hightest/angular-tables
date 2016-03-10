@@ -353,7 +353,7 @@
                 for (var i = 0; i < count; i++) {
                     var row = filteredData[i];
                     resultAll += getValue(field, row, true);
-                    if (angular.isDefined(row.$htTable) && row.$htTable.selected) {
+                    if (angular.isDefined(row.$htTable) && row.$htTable.selected && self.settings.selectMultiple) {
                         result += getValue(field, row, true);
                         isAll = false;
                     }
@@ -378,7 +378,7 @@
                 for (var i = 0; i < count; i++) {
                     var row = filteredData[i];
                     resultAll += getValue(field, row, true);
-                    if (angular.isDefined(row.$htTable) && row.$htTable.selected) {
+                    if (angular.isDefined(row.$htTable) && row.$htTable.selected && self.settings.selectMultiple) {
                         result += getValue(field, row, true);
                         countElements++;
                         isAll = false;
