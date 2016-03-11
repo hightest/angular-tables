@@ -1,7 +1,7 @@
 /*!
  * ht-table
  * https://github.com/hightest/angular-table
- * Version: 0.0.1 - 2016-03-11T08:01:57.327Z
+ * Version: 0.0.1 - 2016-03-11T08:43:05.270Z
  * License: 
  */
 
@@ -360,9 +360,9 @@
 
                 for (var i = 0; i < count; i++) {
                     var row = filteredData[i];
-                    resultAll += getValue(field, row, true);
+                    resultAll += parseFloat(getValue(field, row, true));
                     if (angular.isDefined(row.$htTable) && row.$htTable.selected && self.selectMultiple()) {
-                        result += getValue(field, row, true);
+                        result += parseFloat(getValue(field, row, true));
                         isAll = false;
                     }
                 }
@@ -385,9 +385,9 @@
 
                 for (var i = 0; i < count; i++) {
                     var row = filteredData[i];
-                    resultAll += getValue(field, row, true);
+                    resultAll += parseFloat(getValue(field, row, true));
                     if (angular.isDefined(row.$htTable) && row.$htTable.selected && self.selectMultiple()) {
-                        result += getValue(field, row, true);
+                        result += parseFloat(getValue(field, row, true));
                         countElements++;
                         isAll = false;
                     }
