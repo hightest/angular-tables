@@ -360,8 +360,8 @@
                 }
 
                 if (angular.isDefined(field.filter)) {
-                    result = $filter(field.filter)(result);
-                    resultAll = $filter(field.filter)(resultAll);
+                    result = filterValue(field.filter, result);
+                    resultAll = filterValue(field.filter, resultAll);
                 }
 
                 return isAll ? resultAll : result;
@@ -386,8 +386,8 @@
                 }
 
                 if (angular.isDefined(field.filter)) {
-                    result = $filter(field.filter)(result / countElements);
-                    resultAll = $filter(field.filter)(resultAll / count);
+                    result = filterValue(field.filter, result / countElements);
+                    resultAll = filterValue(field.filter, resultAll / count);
                 }
 
                 return isAll ? resultAll : result;
@@ -410,10 +410,20 @@
                 }
 
                 if (angular.isDefined(field.filter) && !raw) {
-                    result = $filter(field.filter)(result);
+                    result = filterValue(field.filter, result);
                 }
 
                 return result;
+            }
+
+            function filterValue(filter, value) {
+                var result = filter.split(':');
+
+                if (result.length == 2) {
+                    return $filter(result[0])(value, result[1]);
+                } else {
+                    return $filter(result[0])(value);
+                }
             }
 
             function changeSorting(field, $event) {
