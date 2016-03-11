@@ -1,3 +1,7 @@
+.table-responsive {
+    overflow: inherit;;
+}
+
 .ht-table-icon-up {
     background: url("../images/sort_asc.png") no-repeat center right;
 }
