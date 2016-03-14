@@ -1,5 +1,5 @@
 angular.module('demo', ['ht.tables']).controller('DemoCtrl', function ($scope, $q, $timeout) {
-    var expand = {id: 1, name: "a11", age: 34};
+    var expand = {id: 1, name: "a11", age: 1};
 
     var defer = $q.defer();
     $scope.data = [];
@@ -107,7 +107,6 @@ angular.module('demo', ['ht.tables']).controller('DemoCtrl', function ($scope, $
         ],
         expanded: deferred.promise,
         expand: true,
-        comparator: function(object1, object2) {return true;},
         activeStyle: 'active',
         showFilters: true,
         selectMultiple: false

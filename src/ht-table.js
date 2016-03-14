@@ -175,7 +175,6 @@
             function initFiltering() {
                 filter();
                 sort();
-                settings.pagination.current = 1;
                 initSorting();
             }
 
@@ -522,7 +521,10 @@
                 if (timeout) {
                     $timeout.cancel(timeout);
                 }
-                timeout = $timeout(initFiltering, 500);
+                timeout = $timeout(function() {
+                    initFiltering();
+                    settings.pagination.current = 1;
+                }, 500);
             }
 
             function filter() {
