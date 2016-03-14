@@ -107,7 +107,7 @@
                 settings.sorting = $scope.settings.sorting ? $scope.settings.sorting : [];
                 self.filterFields = [{name: "Wszędzie", field: "$"}].concat(settings.fields);
                 settings.fields = $scope.settings.fields;
-                self.selectFilters = settings.selectFilters;
+                self.selectFilters = $scope.settings.selectFilters;
                 self.expanded = settings.expanded;
                 settings.comparator = settings.comparator || defaultComparator;
 
