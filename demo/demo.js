@@ -27,7 +27,7 @@ angular.module('demo', ['ht.tables']).controller('DemoCtrl', function ($scope, $
 
     $timeout(function() {
         defer.resolve([
-            {id: 1, name: "Moroni", age: 50, a: {b: 'a'}},
+            {id: 1, name: "Moroni", age: "50", a: {b: 'a'}},
             {id: 1, name: "Moróni", age: 43, a: {b: 'b'}},
             {id: 1, name: "Jacob", age: 27},
             {id: 1, name: "Nephi", age: 29},
@@ -111,6 +111,23 @@ angular.module('demo', ['ht.tables']).controller('DemoCtrl', function ($scope, $
         showFilters: true,
         selectMultiple: false
     };
+
+    $scope.addSelectFilter = function() {
+        $scope.settings.selectFilters.push({
+            name: "W wieku",
+            options: [
+                {name: "50 lat", field: function(row) {return row.age;}, value: 50, type: "filter"},
+                {name: "43 lat", field: function(row) {return row.age;}, value: 43, type: "filter"}
+            ]
+        });
+    };
+
+    $scope.addColumn = function() {
+        $scope.settings.fields.push({
+            name: 'a',
+            field: 'a.b'
+        });
+    }
 });
 angular.module('demo').run(function($templateCache) {
     $templateCache.put("template.html","<div>{{ row.name }}!</div>");

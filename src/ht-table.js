@@ -28,6 +28,10 @@
                     'value': 'filter'
                 },
                 {
+                    'name': 'Szukaj dokładnie w',
+                    'value': 'exact'
+                },
+                {
                     'name': 'Mniejszy od',
                     'value': 'lessThanOrEqualTo'
                 },
@@ -108,12 +112,20 @@
                 self.filterFields = [{name: "Wszędzie", field: "$"}].concat(settings.fields);
                 settings.fields = $scope.settings.fields;
                 self.selectFilters = settings.selectFilters;
+                settings.selectFilters = $scope.settings.selectFilters;
+                self.selectFilters = $scope.settings.selectFilters;
+                // self.selectFilters = $scope.settings.selectFilters;
                 self.expanded = settings.expanded;
                 settings.comparator = settings.comparator || defaultComparator;
 
                 prepareFields();
             }
 
+            $scope.$watch(function() {
+                return $scope.settings.fields.length;
+            }, function() {
+                self.filterFields = [{name: "Wszędzie", field: "$"}].concat($scope.settings.fields);
+            });
             function postInit() {
                 settings.expanded = $scope.settings.expanded;
                 setCustomFields();
@@ -783,6 +795,13 @@
         };
     }
 
+    function ExactFilter($filter) {
+        return(function(array, expression) {
+            return $filter('filter')(array, expression, function(actual, expected) {
+                return actual == expected;
+            });
+        });
+    }
     function FieldFilter() {
         return function(input) {
             var data = [];
@@ -961,5 +980,6 @@
         .filter('greaterThanOrEqualTo', GreaterThanOrEqualToFilter)
         .filter('lessThanOrEqualTo', LessThanOrEqualToFilter)
         .filter('natural', NaturalFilter)
-        .filter('field', FieldFilter);
+        .filter('field', FieldFilter)
+        .filter('exact', ExactFilter);
 })();
