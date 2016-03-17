@@ -623,6 +623,9 @@
 
             function filterByFunction(data) {
                 var selectFilters = settings.selectFilters;
+                if (angular.isUndefined(settings.selectFilters)) {
+                    selectFilters = [];
+                }
                 var dataCopy = data.slice();
 
 
@@ -657,6 +660,9 @@
 
             function addSelectFilters(filters) {
                 var selectFilters = settings.selectFilters;
+                if (angular.isUndefined(settings.selectFilters)) {
+                    selectFilters = [];
+                }
                 var countFilters = selectFilters.length;
 
                 for (var i = 0; i < countFilters; ++i) {

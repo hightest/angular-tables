@@ -1,7 +1,7 @@
 /*!
  * ht-table
  * https://github.com/hightest/angular-table
- * Version: 0.0.1 - 2016-03-17T15:27:56.801Z
+ * Version: 0.0.1 - 2016-03-17T15:32:07.453Z
  * License: 
  */
 
@@ -631,6 +631,9 @@
 
             function filterByFunction(data) {
                 var selectFilters = settings.selectFilters;
+                if (angular.isUndefined(settings.selectFilters)) {
+                    selectFilters = [];
+                }
                 var dataCopy = data.slice();
 
 
@@ -665,6 +668,9 @@
 
             function addSelectFilters(filters) {
                 var selectFilters = settings.selectFilters;
+                if (angular.isUndefined(settings.selectFilters)) {
+                    selectFilters = [];
+                }
                 var countFilters = selectFilters.length;
 
                 for (var i = 0; i < countFilters; ++i) {
