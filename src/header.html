@@ -1,6 +1,7 @@
 <tr>
     <th>
-        <div dropdown class="btn-group">
+        {{isOpen}}
+        <div dropdown class="btn-group" is-open="htTable.isOpen">
             <button class="btn btn-default dropdown-toggle" type="button" dropdown-toggle=""><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></button>
             <ul class="dropdown-menu" role="menu" ng-click="$event.stopPropagation()">
                 <li ng-repeat="field in htTable.fields"><label><input type="checkbox" ng-model="field.visible">{{field.name}}</label></li>
