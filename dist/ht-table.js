@@ -1,7 +1,7 @@
 /*!
  * ht-table
  * https://github.com/hightest/angular-table
- * Version: 0.0.1 - 2016-03-17T15:37:42.927Z
+ * Version: 0.0.1 - 2016-03-17T15:40:03.578Z
  * License: 
  */
 
