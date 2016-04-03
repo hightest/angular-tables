@@ -1,7 +1,7 @@
 /*!
  * ht-table
  * https://github.com/hightest/angular-table
- * Version: 0.0.1 - 2016-03-18T10:33:03.769Z
+ * Version: 0.0.1 - 2016-04-03T16:34:47.894Z
  * License: 
  */
 
@@ -331,7 +331,7 @@
             }
 
             function rowStyle(row) {
-                if (angular.isDefined(row.$htTable) && row.$htTable.selected)
+                if ((angular.isDefined(row.$htTable) && row.$htTable.selected) || row === self.expanded)
                     return settings.activeStyle;
 
                 return '';

@@ -323,7 +323,7 @@
             }
 
             function rowStyle(row) {
-                if (angular.isDefined(row.$htTable) && row.$htTable.selected)
+                if ((angular.isDefined(row.$htTable) && row.$htTable.selected) || row === self.expanded)
                     return settings.activeStyle;
 
                 return '';
