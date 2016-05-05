@@ -1,3 +1,4 @@
+<div id="exportable{{htTable.settings.id}}">
 <div ng-class="{'table-responsive': !htTable.isOpen}" style="padding-bottom: 50px">
     <table class="table table-bordered" id="{{htTable.settings.id}}" ng-class="table.class">
         <thead ng-include="'ht-table/header.html'"></thead>
@@ -32,3 +33,4 @@
 </div>
 
 <div class="row" ng-include="'ht-table/pagination.html'" ng-if="htTable.showPagination()"></div>
+</div>

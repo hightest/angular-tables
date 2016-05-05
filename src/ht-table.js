@@ -11,7 +11,7 @@
             controller: TableController
         };
 
-        function TableController($scope, $filter, $q, $timeout) {
+        function TableController($scope, $filter, $q, $timeout, $window) {
             var self = this;
             var settings;
             var originalData = [];
@@ -64,6 +64,7 @@
             self.allSelected = false;
             self.selectAll = selectAll;
             self.avg = avg;
+            self.exportToExcel = exportToExcel;
             var singleSelect = null;
 
             $q.when($scope.data).then(function(result) {
@@ -72,6 +73,17 @@
             });
             dataListener();
             init();
+
+
+            function exportToExcel () {
+                var d = angular.copy(document);
+                d.getElementsByClassName("option-group-table")[0].remove();
+                var html = d.getElementById('exportable'+settings.id).innerHTML;
+                var blob = new Blob([html], {
+                    type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
+                });
+                saveAs(blob, "Tabela.xls");
+            }
 
             function dataListener() {
                 $q.when($scope.data).then(function(result) {
@@ -117,6 +129,8 @@
                 // self.selectFilters = $scope.settings.selectFilters;
                 self.expanded = settings.expanded;
                 settings.comparator = settings.comparator || defaultComparator;
+                self.settings = settings;
+
 
                 prepareFields();
             }
@@ -978,6 +992,7 @@
             }
         };
     }
+
 
     angular.module('ht.tables', ['ui.bootstrap', 'naturalSort', 'ngSanitize', 'ngCsv'])
         .directive('htTable', htTableDirective)
