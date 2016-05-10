@@ -78,10 +78,27 @@
             function exportToExcel () {
                 var d = angular.copy(document);
                 d.getElementsByClassName("option-group-table")[0].remove();
+
+                var pagination = d.getElementsByClassName("option-pagination");
+                var footer = d.getElementsByClassName("option-footer");
+                var expand = d.getElementsByClassName("option-expand");
+
+                if (pagination.length > 0) {
+                    pagination[0].remove();
+                }
+
+                if (footer.length > 0) {
+                    footer[0].remove();
+                }
+
+                if (expand.length > 0) {
+                    expand[0].remove();
+                }
+
+
+                var header = '<meta http-equiv="content-type" content="application/vnd.ms-excel; charset=UTF-8">';
                 var html = d.getElementById('exportable'+settings.id).innerHTML;
-                var blob = new Blob([html], {
-                    type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
-                });
+                var blob = new Blob([header + html], { type: "data:application/vnd.ms-excel;charset=UTF-8"});
                 saveAs(blob, "Tabela.xls");
             }
 

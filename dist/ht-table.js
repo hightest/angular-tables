@@ -1,7 +1,7 @@
 /*!
  * ht-table
  * https://github.com/hightest/angular-table
- * Version: 0.0.1 - 2016-05-05T06:48:22.971Z
+ * Version: 0.0.1 - 2016-05-05T10:48:50.691Z
  * License: 
  */
 
@@ -86,10 +86,27 @@
             function exportToExcel () {
                 var d = angular.copy(document);
                 d.getElementsByClassName("option-group-table")[0].remove();
+
+                var pagination = d.getElementsByClassName("option-pagination");
+                var footer = d.getElementsByClassName("option-footer");
+                var expand = d.getElementsByClassName("option-expand");
+
+                if (pagination.length > 0) {
+                    pagination[0].remove();
+                }
+
+                if (footer.length > 0) {
+                    footer[0].remove();
+                }
+
+                if (expand.length > 0) {
+                    expand[0].remove();
+                }
+
+
+                var header = '<meta http-equiv="content-type" content="application/vnd.ms-excel; charset=UTF-8">';
                 var html = d.getElementById('exportable'+settings.id).innerHTML;
-                var blob = new Blob([html], {
-                    type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
-                });
+                var blob = new Blob([header + html], { type: "data:application/vnd.ms-excel;charset=UTF-8"});
                 saveAs(blob, "Tabela.xls");
             }
 
@@ -1129,4 +1146,4 @@ $templateCache.put("ht-table/filters.html","<div class=\"form-inline\" ng-repeat
 $templateCache.put("ht-table/header.html","<tr><th><div dropdown=\"\" class=\"btn-group option-group-table\" is-open=\"htTable.isOpen\"><button class=\"btn btn-default dropdown-toggle\" type=\"button\" dropdown-toggle=\"\"><span class=\"glyphicon glyphicon-cog\" aria-hidden=\"true\"></span></button><ul class=\"dropdown-menu\" role=\"menu\" ng-click=\"$event.stopPropagation()\"><li ng-repeat=\"field in htTable.fields\"><label><input type=\"checkbox\" ng-model=\"field.visible\">{{field.name}}</label></li><button class=\"btn btn-primary\" ng-csv=\"htTable.export()\" csv-header=\"htTable.exportHeader()\" filename=\"export.csv\">Eksportuj do CSV</button> <button class=\"btn btn-primary\" ng-click=\"htTable.exportToExcel()\">Eksportuj do XLS</button></ul></div></th><th ng-if=\"htTable.selectMultiple()\"><input type=\"checkbox\" ng-model=\"htTable.allSelected\" ng-change=\"htTable.selectAll()\"></th><div><th ng-repeat=\"field in htTable.fields | field\" ng-click=\"htTable.changeSorting(field, $event)\" ng-class=\"htTable.getFieldClass(field)\" style=\"cursor:pointer\">{{field.name}}</th></div></tr>");
 $templateCache.put("ht-table/layout.html","<div id=\"ng-table\"><div ng-if=\"htTable.showFilters()\" ng-include=\"\'ht-table/filters.html\'\"></div><h4 ng-repeat-start=\"field in filter.select\">{{field.name}}</h4><div class=\"btn-group\" ng-repeat-end=\"\"><label ng-repeat=\"option in field.options\" class=\"btn btn-success\" ng-change=\"filter.update()\" ng-model=\"option.selected\" btn-radio=\"1\" btn-checkbox=\"\">{{option.name}}</label></div><div ng-include=\"\'ht-table/table.html\'\"></div></div>");
 $templateCache.put("ht-table/pagination.html","<div class=\"col-xs-6\"><pagination boundary-links=\"true\" ng-if=\"htTable.pagination.itemsPerPage <= htTable.pagination.total && htTable.pagination.itemsPerPage != 0\" total-items=\"htTable.pagination.total\" ng-model=\"htTable.pagination.current\" ng-change=\"htTable.updatePagination()\" max-size=\"5\" items-per-page=\"htTable.pagination.itemsPerPage\" previous-text=\"&lsaquo;\" next-text=\"&rsaquo;\" first-text=\"&laquo;\" last-text=\"&raquo;\"></pagination></div><div class=\"btn-group col-xs-6\" ng-if=\"htTable.pagination.total > 10\"><label class=\"btn btn-primary\" ng-model=\"htTable.pagination.itemsPerPage\" ng-change=\"htTable.updatePagination()\" btn-radio=\"10\">10</label> <label class=\"btn btn-primary\" ng-model=\"htTable.pagination.itemsPerPage\" ng-change=\"htTable.updatePagination()\" btn-radio=\"25\">25</label> <label class=\"btn btn-primary\" ng-if=\"htTable.pagination.total > 25\" ng-change=\"htTable.updatePagination()\" ng-model=\"htTable.pagination.itemsPerPage\" btn-radio=\"50\">50</label> <label class=\"btn btn-primary\" ng-if=\"htTable.pagination.total > 50\" ng-change=\"htTable.updatePagination()\" ng-model=\"htTable.pagination.itemsPerPage\" btn-radio=\"100\">100</label> <label class=\"btn btn-primary\" ng-model=\"htTable.pagination.itemsPerPage\" ng-change=\"htTable.updatePagination()\" btn-radio=\"0\">Wszystkie</label></div>");
-$templateCache.put("ht-table/table.html","<div id=\"exportable{{htTable.settings.id}}\"><div ng-class=\"{\'table-responsive\': !htTable.isOpen}\" style=\"padding-bottom: 50px\"><table class=\"table table-bordered\" id=\"{{htTable.settings.id}}\" ng-class=\"table.class\"><thead ng-include=\"\'ht-table/header.html\'\"></thead><tbody><tr ng-repeat-start=\"row in htTable.data\" ng-class=\"htTable.rowStyle(row)\"><td>{{ htTable.getIndex() + $index + 1 }}.</td><th scope=\"row\" ng-if=\"htTable.selectMultiple()\" ng-include=\"\'ht-table/checkbox.html\'\"></th><td ng-repeat=\"field in htTable.fields | field\" ng-click=\"htTable.expand(row)\"><div ng-if=\"field.template\" ht-table-template=\"field.template\" custom-scope=\"htTable.customScope\" ng-model=\"row\"></div><div ng-if=\"!field.templateUrl && !field.template\">{{htTable.getValue(field, row)}}</div><div ng-if=\"field.templateUrl\" ng-click=\"$event.stopPropagation()\" ng-include=\"field.templateUrl\" onload=\"customScope = htTable.customScope\"></div></td></tr><tr ng-repeat-end=\"\" ng-if=\"htTable.expanded == row\"><td colspan=\"{{htTable.countColumns()}}\"><div ui-view=\"\"></div></td></tr></tbody><tfoot ng-if=\"htTable.hasSum()\"><tr><td>&nbsp;</td><td ng-if=\"htTable.selectMultiple()\">&nbsp;</td><td ng-repeat=\"field in htTable.fields | field\"><span ng-if=\"field.type && (field.type == \'sum\' || field.type.indexOf(\'sum\') !== -1)\">Suma: {{htTable.sum(field)}}<br></span> <span ng-if=\"field.type && (field.type == \'avg\' || field.type.indexOf(\'avg\') !== -1)\">Średnia: {{htTable.avg(field)}}</span></td></tr></tfoot></table></div><div class=\"row\" ng-include=\"\'ht-table/pagination.html\'\" ng-if=\"htTable.showPagination()\"></div></div>");}]);
+$templateCache.put("ht-table/table.html","<div id=\"exportable{{htTable.settings.id}}\"><div ng-class=\"{\'table-responsive\': !htTable.isOpen}\" style=\"padding-bottom: 50px\"><table class=\"table table-bordered\" id=\"{{htTable.settings.id}}\" ng-class=\"table.class\"><thead ng-include=\"\'ht-table/header.html\'\"></thead><tbody><tr ng-repeat-start=\"row in htTable.data\" ng-class=\"htTable.rowStyle(row)\"><td>{{ htTable.getIndex() + $index + 1 }}.</td><th scope=\"row\" ng-if=\"htTable.selectMultiple()\" ng-include=\"\'ht-table/checkbox.html\'\"></th><td ng-repeat=\"field in htTable.fields | field\" ng-click=\"htTable.expand(row)\"><div ng-if=\"field.template\" ht-table-template=\"field.template\" custom-scope=\"htTable.customScope\" ng-model=\"row\"></div><div ng-if=\"!field.templateUrl && !field.template\">{{htTable.getValue(field, row)}}</div><div ng-if=\"field.templateUrl\" ng-click=\"$event.stopPropagation()\" ng-include=\"field.templateUrl\" onload=\"customScope = htTable.customScope\"></div></td></tr><tr ng-repeat-end=\"\" ng-if=\"htTable.expanded == row\" class=\"option-expand\"><td colspan=\"{{htTable.countColumns()}}\"><div ui-view=\"\"></div></td></tr></tbody><tfoot ng-if=\"htTable.hasSum()\" class=\"option-footer\"><tr><td>&nbsp;</td><td ng-if=\"htTable.selectMultiple()\">&nbsp;</td><td ng-repeat=\"field in htTable.fields | field\"><span ng-if=\"field.type && (field.type == \'sum\' || field.type.indexOf(\'sum\') !== -1)\">Suma: {{htTable.sum(field)}}<br></span> <span ng-if=\"field.type && (field.type == \'avg\' || field.type.indexOf(\'avg\') !== -1)\">Średnia: {{htTable.avg(field)}}</span></td></tr></tfoot></table></div><div class=\"row option-pagination\" ng-include=\"\'ht-table/pagination.html\'\" ng-if=\"htTable.showPagination()\"></div></div>");}]);

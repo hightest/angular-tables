@@ -25,6 +25,7 @@
     "ng-table": "0.3.*",
     "angular-bootstrap": "latest",
     "ng-csv": "latest",
-    "angular-sanitize": "latest"
+    "angular-sanitize": "latest",
+    "file-saver.js": "latest"
   }
 }
