@@ -11,7 +11,7 @@
             controller: TableController
         };
 
-        function TableController($scope, $filter, $q, $timeout) {
+        function TableController($scope, $filter, $q, $timeout, $window) {
             var self = this;
             var settings;
             var originalData = [];
@@ -64,6 +64,7 @@
             self.allSelected = false;
             self.selectAll = selectAll;
             self.avg = avg;
+            self.exportToExcel = exportToExcel;
             var singleSelect = null;
 
             $q.when($scope.data).then(function(result) {
@@ -72,6 +73,34 @@
             });
             dataListener();
             init();
+
+
+            function exportToExcel () {
+                var d = angular.copy(document);
+                d.getElementsByClassName("option-group-table")[0].remove();
+
+                var pagination = d.getElementsByClassName("option-pagination");
+                var footer = d.getElementsByClassName("option-footer");
+                var expand = d.getElementsByClassName("option-expand");
+
+                if (pagination.length > 0) {
+                    pagination[0].remove();
+                }
+
+                if (footer.length > 0) {
+                    footer[0].remove();
+                }
+
+                if (expand.length > 0) {
+                    expand[0].remove();
+                }
+
+
+                var header = '<meta http-equiv="content-type" content="application/vnd.ms-excel; charset=UTF-8">';
+                var html = d.getElementById('exportable'+settings.id).innerHTML;
+                var blob = new Blob([header + html], { type: "data:application/vnd.ms-excel;charset=UTF-8"});
+                saveAs(blob, "Tabela.xls");
+            }
 
             function dataListener() {
                 $q.when($scope.data).then(function(result) {
@@ -117,6 +146,8 @@
                 // self.selectFilters = $scope.settings.selectFilters;
                 self.expanded = settings.expanded;
                 settings.comparator = settings.comparator || defaultComparator;
+                self.settings = settings;
+
 
                 prepareFields();
             }
@@ -986,6 +1017,7 @@
             }
         };
     }
+
 
     angular.module('ht.tables', ['ui.bootstrap', 'naturalSort', 'ngSanitize', 'ngCsv'])
         .directive('htTable', htTableDirective)

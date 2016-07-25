@@ -1,3 +1,4 @@
+<div id="exportable{{htTable.settings.id}}">
 <div ng-class="{'table-responsive': !htTable.isOpen}" style="padding-bottom: 50px">
     <table class="table table-bordered" id="{{htTable.settings.id}}" ng-class="table.class">
         <thead ng-include="'ht-table/header.html'"></thead>
@@ -10,11 +11,11 @@
                 <div ng-if="!field.templateUrl && !field.template" ng-class="{'row-number': htTable.isNumber(field)}">{{htTable.getValue(field, row)}}</div>
                 <div ng-if="field.templateUrl" ng-click="$event.stopPropagation()" ng-include="field.templateUrl" onload="customScope = htTable.customScope"></div>
             </td>
-        <tr ng-repeat-end="" ng-if="htTable.expanded == row">
+        <tr ng-repeat-end="" ng-if="htTable.expanded == row" class="option-expand">
             <td colspan="{{htTable.countColumns()}}"><div ui-view></div></td>
         </tr>
         </tbody>
-        <tfoot ng-if="htTable.hasSum()">
+        <tfoot ng-if="htTable.hasSum()" class="option-footer">
         <tr>
             <td>&nbsp;</td>
             <td ng-if="htTable.selectMultiple()">&nbsp;</td>
@@ -31,4 +32,5 @@
     </table>
 </div>
 
-<div class="row" ng-include="'ht-table/pagination.html'" ng-if="htTable.showPagination()"></div>
+<div class="row option-pagination" ng-include="'ht-table/pagination.html'" ng-if="htTable.showPagination()"></div>
+</div>
