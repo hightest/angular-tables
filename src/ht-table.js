@@ -199,6 +199,11 @@
                 paginate();
             }
 
+            self.isNumber = function(field) {
+                var numbers = ['currency', 'number', 'numberInt'];
+                return angular.isDefined(field.filter) && numbers.indexOf(field.filter) !== -1;
+            };
+
             function expand(row) {
                 settings.onClick(row);
                 if (!settings.selectMultiple) {
