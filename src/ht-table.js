@@ -432,8 +432,8 @@
                     }
                 }
 
-                result = result / countElements;
-                resultAll = resultAll / count;
+                result = Math.round(result / countElements);
+                resultAll = Math.round(resultAll / count);
 
                 if (angular.isDefined(field.filter)) {
                     result = filterValue(field.filter, result);
@@ -681,7 +681,7 @@
                                 var row = dataCopy[k];
                                 var value = option.field(row);
 
-                                if (value == option.value && newData.indexOf(row) === -1) {
+                                if (value.indexOf(option.value) !== -1 && newData.indexOf(row) === -1) {
                                     newData.push(row);
                                 }
                             }
