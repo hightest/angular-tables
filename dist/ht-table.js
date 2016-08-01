@@ -1,7 +1,7 @@
 /*!
  * ht-table
  * https://github.com/hightest/angular-table
- * Version: 0.0.1 - 2016-07-26T12:47:23.813Z
+ * Version: 0.0.1 - 2016-08-01T14:03:42.783Z
  * License: 
  */
 
@@ -641,6 +641,7 @@
                 }
 
                 filteredData = filterByFunction(data);
+                this.settings.filteredData = filteredData;
             }
 
             function transformFilter(filters) {

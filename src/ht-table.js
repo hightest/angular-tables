@@ -633,6 +633,7 @@
                 }
 
                 filteredData = filterByFunction(data);
+                this.settings.filteredData = filteredData;
             }
 
             function transformFilter(filters) {
