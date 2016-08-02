@@ -633,7 +633,8 @@
                 }
 
                 filteredData = filterByFunction(data);
-                this.settings.filteredData = filteredData;
+                //this.settings.filteredData = filteredData;
+                $scope.settings.filteredData = filteredData;
             }
 
             function transformFilter(filters) {
